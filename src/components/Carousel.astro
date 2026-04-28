@@ -42,6 +42,30 @@ const slides = [
   </div>
 </div>
 
+<div class="lightbox" data-lightbox hidden>
+  <button class="lightbox-close" data-lightbox-close aria-label="Close">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="Previous">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+  <button class="lightbox-nav lightbox-next" data-lightbox-next aria-label="Next">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
+  <div class="lightbox-content">
+    {slides.map((slide, i) => (
+      <img src={slide.src.src} alt={slide.alt} class="lightbox-img" data-lightbox-img={i} />
+    ))}
+  </div>
+</div>
+
 <style>
   .carousel {
     max-width: 900px;
@@ -121,6 +145,95 @@ const slides = [
     width: 20px;
     border-radius: 4px;
   }
+
+  .carousel-slide {
+    cursor: pointer;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .lightbox[data-active] {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: color 0.12s, background 0.12s;
+  }
+
+  .lightbox-close:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-dim);
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.12s;
+  }
+
+  .lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--text);
+  }
+
+  .lightbox-prev {
+    left: 1.25rem;
+  }
+
+  .lightbox-next {
+    right: 1.25rem;
+  }
+
+  .lightbox-content {
+    max-width: 92vw;
+    max-height: 90vh;
+    position: relative;
+  }
+
+  .lightbox-img {
+    max-width: 92vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: var(--radius);
+    display: none;
+  }
+
+  .lightbox-img.active {
+    display: block;
+  }
 </style>
 
 <script>
@@ -139,7 +252,7 @@ const slides = [
 
     function goTo(index: number) {
       current = (index + total) % total;
-      slides.forEach((slide, i) => {
+      slides.forEach((slide) => {
         (slide as HTMLElement).style.transform = `translateX(-${current * 100}%)`;
       });
       dots.forEach((dot, i) => {
@@ -154,6 +267,52 @@ const slides = [
         const index = parseInt((dot as HTMLElement).dataset.dot || '0');
         goTo(index);
       });
+    });
+
+    // Lightbox
+    const lightbox = document.querySelector('[data-lightbox]') as HTMLElement;
+    const lightboxImgs = lightbox.querySelectorAll('[data-lightbox-img]');
+    const lightboxClose = lightbox.querySelector('[data-lightbox-close]');
+    const lightboxPrev = lightbox.querySelector('[data-lightbox-prev]');
+    const lightboxNext = lightbox.querySelector('[data-lightbox-next]');
+
+    let lightboxIndex = 0;
+
+    function showLightbox(index: number) {
+      lightboxIndex = (index + total) % total;
+      lightboxImgs.forEach((img, i) => {
+        img.classList.toggle('active', i === lightboxIndex);
+      });
+      lightbox.removeAttribute('hidden');
+      requestAnimationFrame(() => lightbox.setAttribute('data-active', ''));
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideLightbox() {
+      lightbox.removeAttribute('data-active');
+      document.body.style.overflow = '';
+      setTimeout(() => lightbox.setAttribute('hidden', ''), 200);
+    }
+
+    slides.forEach((slide) => {
+      slide.addEventListener('click', () => showLightbox(current));
+    });
+
+    lightboxClose?.addEventListener('click', hideLightbox);
+    lightboxPrev?.addEventListener('click', () => showLightbox(lightboxIndex - 1));
+    lightboxNext?.addEventListener('click', () => showLightbox(lightboxIndex + 1));
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target === lightbox.querySelector('.lightbox-content')) {
+        hideLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.hasAttribute('data-active')) return;
+      if (e.key === 'Escape') hideLightbox();
+      if (e.key === 'ArrowLeft') showLightbox(lightboxIndex - 1);
+      if (e.key === 'ArrowRight') showLightbox(lightboxIndex + 1);
     });
   });
 </script>
