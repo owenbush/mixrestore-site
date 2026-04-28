@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
+import Carousel from '../components/Carousel.astro';
 import logoIcon from '../assets/logo-icon.png';
 ---
 
@@ -26,9 +27,7 @@ import logoIcon from '../assets/logo-icon.png';
       </div>
     </div>
     <div class="hero-screenshot">
-      <div class="screenshot-placeholder">
-        <span>App screenshot</span>
-      </div>
+      <Carousel />
     </div>
   </section>
 
@@ -235,21 +234,7 @@ import logoIcon from '../assets/logo-icon.png';
     margin-top: 3.5rem;
   }
 
-  .screenshot-placeholder {
-    max-width: 900px;
-    margin: 0 auto;
-    aspect-ratio: 16/10;
-    background: var(--bg-1);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-faint);
-    font-size: 0.85rem;
-  }
-
-  .features {
+.features {
     padding: 5rem 1.5rem;
     background: var(--bg-1);
     border-top: 1px solid var(--line-2);

@@ -1,0 +1,159 @@
+---
+import { Image } from 'astro:assets';
+import projectList from '../assets/project-list.png';
+import project from '../assets/project.png';
+import lightModeProject from '../assets/light-mode-project.png';
+import restore from '../assets/restore.png';
+import deletePng from '../assets/delete.png';
+
+const slides = [
+  { src: projectList, alt: 'Project list view showing tracked Ableton projects' },
+  { src: project, alt: 'Project detail view with version history and metadata' },
+  { src: lightModeProject, alt: 'Light mode project view' },
+  { src: restore, alt: 'Restore dialog for rolling back to a previous version' },
+  { src: deletePng, alt: 'Delete confirmation dialog' },
+];
+---
+
+<div class="carousel" data-carousel>
+  <div class="carousel-track" data-carousel-track>
+    {slides.map((slide, i) => (
+      <div class="carousel-slide" data-index={i}>
+        <Image src={slide.src} alt={slide.alt} widths={[800, 1200]} sizes="(max-width: 900px) 100vw, 900px" />
+      </div>
+    ))}
+  </div>
+  <div class="carousel-controls">
+    <button class="carousel-btn prev" data-carousel-prev aria-label="Previous screenshot">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <div class="carousel-dots" data-carousel-dots>
+      {slides.map((_, i) => (
+        <button class:list={['dot', { active: i === 0 }]} data-dot={i} aria-label={`Go to screenshot ${i + 1}`} />
+      ))}
+    </div>
+    <button class="carousel-btn next" data-carousel-next aria-label="Next screenshot">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .carousel {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line-2);
+    background: var(--bg-1);
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    transition: transform 0.4s ease;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .carousel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line-2);
+    background: var(--bg-2);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.12s;
+  }
+
+  .carousel-btn:hover {
+    background: var(--bg-3);
+    color: var(--text);
+    border-color: var(--text-min);
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: var(--line-2);
+    cursor: pointer;
+    transition: all 0.15s;
+    padding: 0;
+  }
+
+  .dot:hover {
+    background: var(--text-faint);
+  }
+
+  .dot.active {
+    background: var(--accent);
+    width: 20px;
+    border-radius: 4px;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const carousel = document.querySelector('[data-carousel]');
+    if (!carousel) return;
+
+    const track = carousel.querySelector('[data-carousel-track]') as HTMLElement;
+    const slides = track.querySelectorAll('.carousel-slide');
+    const dots = carousel.querySelectorAll('[data-dot]');
+    const prevBtn = carousel.querySelector('[data-carousel-prev]');
+    const nextBtn = carousel.querySelector('[data-carousel-next]');
+
+    let current = 0;
+    const total = slides.length;
+
+    function goTo(index: number) {
+      current = (index + total) % total;
+      slides.forEach((slide, i) => {
+        (slide as HTMLElement).style.transform = `translateX(-${current * 100}%)`;
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === current);
+      });
+    }
+
+    prevBtn?.addEventListener('click', () => goTo(current - 1));
+    nextBtn?.addEventListener('click', () => goTo(current + 1));
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = parseInt((dot as HTMLElement).dataset.dot || '0');
+        goTo(index);
+      });
+    });
+  });
+</script>
