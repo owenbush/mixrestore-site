@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo-full.png';
+import logoIcon from '../assets/logo-icon.png';
 ---
 
 <header class="site-header">
   <div class="header-inner">
     <a href="/" class="logo-link">
-      <Image src={logo} alt="MixRestore" height={32} />
+      <Image src={logoIcon} alt="" width={28} height={28} />
+      <span class="logo-text">MixRestore</span>
     </a>
     <nav>
       <a href="/#features">Features</a>
@@ -38,11 +39,20 @@ import logo from '../assets/logo-full.png';
   .logo-link {
     display: flex;
     align-items: center;
+    gap: 0.6rem;
   }
 
   .logo-link img {
-    height: 32px;
-    width: auto;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ecedf0;
+    letter-spacing: -0.02em;
   }
 
   nav {
@@ -65,7 +75,7 @@ import logo from '../assets/logo-full.png';
 
   .btn-download {
     background: var(--accent);
-    color: var(--accent-on);
+    color: #1a1410;
     padding: 0.45rem 1rem;
     border-radius: var(--radius-sm);
     font-weight: 600;

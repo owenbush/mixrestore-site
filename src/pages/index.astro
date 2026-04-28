@@ -1,14 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import { Image } from 'astro:assets';
-import logoMark from '../assets/logo-mark.png';
+import logoIcon from '../assets/logo-icon.png';
 ---
 
 <Base title="MixRestore — Version Control for Music Producers">
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-badge">
-        <Image src={logoMark} alt="" width={24} height={24} />
+        <Image src={logoIcon} alt="" width={24} height={24} />
         <span>Now available for macOS</span>
       </div>
       <h1>Never lose a mix again</h1>
@@ -212,7 +212,7 @@ import logoMark from '../assets/logo-mark.png';
 
   .btn-primary {
     background: var(--accent);
-    color: var(--accent-on);
+    color: #111;
   }
 
   .btn-primary:hover {
@@ -251,7 +251,9 @@ import logoMark from '../assets/logo-mark.png';
 
   .features {
     padding: 5rem 1.5rem;
-    border-top: 1px solid var(--line);
+    background: var(--bg-1);
+    border-top: 1px solid var(--line-2);
+    border-bottom: 1px solid var(--line-2);
   }
 
   .features-inner {
@@ -278,15 +280,15 @@ import logoMark from '../assets/logo-mark.png';
   }
 
   .feature-card {
-    background: var(--bg-1);
-    border: 1px solid var(--line);
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
     border-radius: var(--radius);
     padding: 1.5rem;
     transition: border-color 0.15s;
   }
 
   .feature-card:hover {
-    border-color: var(--line-2);
+    border-color: var(--text-min);
   }
 
   .feature-icon {
@@ -307,7 +309,6 @@ import logoMark from '../assets/logo-mark.png';
 
   .how-it-works {
     padding: 5rem 1.5rem;
-    border-top: 1px solid var(--line);
   }
 
   .how-inner {
@@ -362,7 +363,8 @@ import logoMark from '../assets/logo-mark.png';
   .cta {
     padding: 5rem 1.5rem;
     text-align: center;
-    border-top: 1px solid var(--line);
+    background: var(--bg-1);
+    border-top: 1px solid var(--line-2);
   }
 
   .cta-inner {
