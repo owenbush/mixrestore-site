@@ -1,0 +1,59 @@
+---
+import Docs from '../../layouts/Docs.astro';
+---
+
+<Docs title="How It Works">
+  <h1>How It Works</h1>
+  <p>
+    Under the hood, MixRestore uses Git for version tracking. This page explains
+    the technical details for users who want to understand what's happening on disk.
+  </p>
+
+  <h2>Git repositories</h2>
+  <p>
+    When you initialize tracking for a project, MixRestore creates a Git repository
+    in your Ableton project folder. This adds a hidden <code>.git</code> directory that
+    stores the full version history.
+  </p>
+  <p>
+    Your project files are never moved or modified by MixRestore. The <code>.git</code>
+    folder can be safely deleted if you ever want to remove version tracking — your
+    project files remain untouched.
+  </p>
+
+  <h2>File watching</h2>
+  <p>
+    MixRestore uses filesystem watchers (via <code>chokidar</code>) to monitor your project
+    folder. When changes are detected:
+  </p>
+  <ol>
+    <li>A debounce timer ensures the save is complete (prevents capturing partial writes)</li>
+    <li>Changed files are staged with <code>git add</code></li>
+    <li>A commit is created with a timestamp and auto-generated message</li>
+  </ol>
+
+  <h2>Project parsing</h2>
+  <p>
+    Ableton <code>.als</code> files are gzip-compressed XML. MixRestore decompresses and
+    parses them to extract metadata like BPM, key, time signature, track counts, samples,
+    and arrangement locators. This parsing happens on each version to keep metadata current.
+  </p>
+
+  <h2>Storage</h2>
+  <p>
+    Version history is stored efficiently by Git's delta compression. Even for large projects,
+    the <code>.git</code> folder typically stays small because Git only stores the differences
+    between versions.
+  </p>
+  <p>
+    Project metadata (BPM, track counts, etc.) is stored in a local SQLite database
+    within MixRestore's application data folder for fast access.
+  </p>
+
+  <h2>Compatibility with Git tools</h2>
+  <p>
+    Since MixRestore uses standard Git repositories, you can use any Git tool to inspect
+    the history if you wish. However, modifying the repository externally (rebasing,
+    force-pushing, etc.) may cause MixRestore's UI to show unexpected state.
+  </p>
+</Docs>

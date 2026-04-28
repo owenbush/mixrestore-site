@@ -1,0 +1,47 @@
+---
+import Docs from '../../layouts/Docs.astro';
+---
+
+<Docs title="Project Insights">
+  <h1>Project Insights</h1>
+  <p>
+    MixRestore parses your Ableton Live Set files and extracts rich metadata,
+    giving you a bird's-eye view of your project at any point in time.
+  </p>
+
+  <h2>Metadata</h2>
+  <p>The project header displays key information at a glance:</p>
+  <ul>
+    <li><strong>BPM</strong> — project tempo</li>
+    <li><strong>Key</strong> — musical key and scale</li>
+    <li><strong>Time Signature</strong> — e.g., 4/4, 3/4, 6/8</li>
+    <li><strong>Ableton Version</strong> — which version of Live created the project</li>
+  </ul>
+
+  <h2>Tracks</h2>
+  <p>
+    View a breakdown of your project's track types — audio, MIDI, return, and group tracks.
+    Track counts update with each version so you can see how your project grew over time.
+  </p>
+
+  <h2>Arrangement</h2>
+  <p>
+    The arrangement visualization shows your project's locator-based sections as a
+    horizontal bar chart. Each section is displayed proportionally based on its length
+    in bars, giving you a visual overview of the song structure.
+  </p>
+  <p>Hover over any section to see its name and bar range.</p>
+
+  <h2>Samples</h2>
+  <p>
+    MixRestore lists all audio samples used in the project. For each sample you can see:
+  </p>
+  <ul>
+    <li>File name and relative path</li>
+    <li>Whether it's a Splice sample (detected automatically)</li>
+  </ul>
+  <p>
+    Use the search filter to find specific samples, or copy the full sample list
+    to your clipboard for reference.
+  </p>
+</Docs>

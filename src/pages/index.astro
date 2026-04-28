@@ -1,0 +1,400 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import logoMark from '../assets/logo-mark.png';
+---
+
+<Base title="MixRestore — Version Control for Music Producers">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <Image src={logoMark} alt="" width={24} height={24} />
+        <span>Now available for macOS</span>
+      </div>
+      <h1>Never lose a mix again</h1>
+      <p class="hero-sub">
+        MixRestore automatically tracks every save of your Ableton Live projects.
+        Compare versions, restore any point in time, and keep your creative flow uninterrupted.
+      </p>
+      <div class="hero-actions" id="download">
+        <a href="https://github.com/owenbush/MixRestore/releases" class="btn btn-primary">
+          Download for macOS
+        </a>
+        <a href="/docs" class="btn btn-secondary">
+          Read the docs
+        </a>
+      </div>
+    </div>
+    <div class="hero-screenshot">
+      <div class="screenshot-placeholder">
+        <span>App screenshot</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="features-inner">
+      <h2>Built for your workflow</h2>
+      <p class="features-sub">MixRestore understands DAW projects. No terminal, no manual saves — just music.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3>Automatic versioning</h3>
+          <p>Every time you save, MixRestore captures a snapshot. No extra steps, no interruptions to your creative flow.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20V10"/>
+              <path d="M18 20V4"/>
+              <path d="M6 20v-4"/>
+            </svg>
+          </div>
+          <h3>Project insights</h3>
+          <p>See BPM, key, time signature, track counts, samples, and arrangement at a glance for every version.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+          </div>
+          <h3>Instant restore</h3>
+          <p>Roll back to any previous version with one click. Safe mode keeps your current state; hard mode replaces it entirely.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 3h5v5"/>
+              <path d="M8 3H3v5"/>
+              <path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/>
+              <path d="m15 9 6-6"/>
+            </svg>
+          </div>
+          <h3>Version tags</h3>
+          <p>Label important milestones — drafts, approved mixes, finals, experiments. Find the version you need instantly.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8"/>
+              <path d="M12 17v4"/>
+            </svg>
+          </div>
+          <h3>Native macOS app</h3>
+          <p>Runs quietly in the background. Detects Ableton Live automatically and starts tracking when you work.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12 L5.5 12 L8 5 L11.5 19 L14 9 L17 14 L22 14"/>
+            </svg>
+          </div>
+          <h3>Arrangement view</h3>
+          <p>Visualize your project's arrangement sections and locators directly in the version history timeline.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <div class="how-inner">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Add your project</h3>
+          <p>Point MixRestore at your Ableton project folder, or let it scan your system for existing projects.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Keep working</h3>
+          <p>MixRestore watches for changes in the background. Every time you hit save, a new version is captured automatically.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Explore your history</h3>
+          <p>Browse every version with full metadata. Compare changes, tag important milestones, or restore any point in time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <h2>Start protecting your projects today</h2>
+      <p>Free and open source. Works with Ableton Live 10, 11, and 12.</p>
+      <a href="https://github.com/owenbush/MixRestore/releases" class="btn btn-primary">
+        Download MixRestore
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 5rem 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 0.35rem 0.9rem 0.35rem 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-badge img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+  }
+
+  .hero h1 {
+    font-size: 3.25rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--text-mid) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .hero-sub {
+    font-size: 1.125rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 540px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.12s;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-on);
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .btn-secondary {
+    background: var(--bg-2);
+    color: var(--text-mid);
+    border: 1px solid var(--line);
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-3);
+    color: var(--text);
+    opacity: 1;
+  }
+
+  .hero-screenshot {
+    margin-top: 3.5rem;
+  }
+
+  .screenshot-placeholder {
+    max-width: 900px;
+    margin: 0 auto;
+    aspect-ratio: 16/10;
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+  }
+
+  .features {
+    padding: 5rem 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .features-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .features-inner h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .features-sub {
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+    text-align: left;
+  }
+
+  .feature-card {
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: border-color 0.15s;
+  }
+
+  .feature-card:hover {
+    border-color: var(--line-2);
+  }
+
+  .feature-icon {
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .feature-card p {
+    color: var(--text-dim);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .how-it-works {
+    padding: 5rem 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .how-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .how-inner h2 {
+    margin-bottom: 3rem;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    text-align: left;
+  }
+
+  .step {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .step-num {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .step h3 {
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .step p {
+    color: var(--text-dim);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .cta {
+    padding: 5rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+
+  .cta-inner {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .cta-inner h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-inner p {
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 {
+      font-size: 2.25rem;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .steps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

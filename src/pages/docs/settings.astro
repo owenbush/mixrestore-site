@@ -1,0 +1,46 @@
+---
+import Docs from '../../layouts/Docs.astro';
+---
+
+<Docs title="Settings">
+  <h1>Settings</h1>
+  <p>
+    MixRestore's settings let you customize scanning behavior and project management.
+  </p>
+
+  <h2>Scan directories</h2>
+  <p>
+    Configure which directories MixRestore searches when scanning for projects.
+    By default, it looks in common Ableton project locations:
+  </p>
+  <ul>
+    <li><code>~/Music/Ableton</code></li>
+    <li><code>~/Documents</code></li>
+  </ul>
+  <p>
+    You can add or remove directories from the scan list in Settings. MixRestore searches
+    recursively within each directory for <code>.als</code> files.
+  </p>
+
+  <h2>Ignored paths</h2>
+  <p>
+    If certain folders contain Ableton projects you don't want to track (e.g., tutorial
+    files or archived work), add them to the ignored paths list. They won't appear in
+    scan results.
+  </p>
+
+  <h2>Ignored files (Git)</h2>
+  <p>
+    Each tracked project has a <code>.gitignore</code> file that controls which files
+    are excluded from version tracking. By default, MixRestore ignores:
+  </p>
+  <ul>
+    <li><code>Backup/</code> — Ableton's automatic backup folder</li>
+    <li><code>*.undo</code> — Undo history files</li>
+    <li>OS files like <code>.DS_Store</code></li>
+  </ul>
+  <p>
+    You can customize the <code>.gitignore</code> to exclude large sample folders
+    or other files you don't need versioned.
+  </p>
+</Docs>

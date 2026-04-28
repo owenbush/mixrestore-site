@@ -1,0 +1,60 @@
+---
+import Docs from '../../layouts/Docs.astro';
+---
+
+<Docs title="Quick Start">
+  <h1>Quick Start</h1>
+  <p>
+    This guide walks you through tracking your first Ableton project with MixRestore.
+  </p>
+
+  <h2>1. Add a project</h2>
+  <p>
+    When you first open MixRestore, you'll see an empty project list. You have two options:
+  </p>
+  <ul>
+    <li><strong>Scan for projects</strong> — MixRestore will search common locations for Ableton Live Sets</li>
+    <li><strong>Add manually</strong> — Click the "+" button and select an <code>.als</code> file or project folder</li>
+  </ul>
+
+  <h2>2. Initialize tracking</h2>
+  <p>
+    Select your project from the list. If it hasn't been tracked before, MixRestore will
+    prompt you to initialize version tracking. This creates a Git repository inside your
+    project folder (in a hidden <code>.git</code> directory).
+  </p>
+  <p>
+    Your project files are not modified — the <code>.git</code> folder only stores version history.
+  </p>
+
+  <h2>3. Enable auto-versioning</h2>
+  <p>
+    Toggle the <strong>Auto Versioning</strong> switch in the project detail view. MixRestore will now
+    watch your project folder and automatically create a new version every time you save in Ableton.
+  </p>
+
+  <h2>4. Work as normal</h2>
+  <p>
+    Open your project in Ableton Live and work on your music. Every time you hit
+    <kbd>Cmd+S</kbd>, MixRestore captures a snapshot in the background. You'll see new
+    entries appear in the version history timeline.
+  </p>
+
+  <h2>5. Browse your history</h2>
+  <p>
+    The project detail view shows your complete version history with:
+  </p>
+  <ul>
+    <li>Timestamp and auto-generated commit messages</li>
+    <li>BPM, key, time signature metadata</li>
+    <li>Track counts and sample lists</li>
+    <li>Arrangement visualization</li>
+  </ul>
+
+  <h2>Next steps</h2>
+  <ul>
+    <li><a href="/docs/version-tags">Tag important versions</a> with meaningful labels</li>
+    <li><a href="/docs/restore">Restore a previous version</a> when you want to go back</li>
+    <li><a href="/docs/project-insights">Explore project insights</a> to understand changes over time</li>
+  </ul>
+</Docs>

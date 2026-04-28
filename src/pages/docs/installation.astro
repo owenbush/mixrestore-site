@@ -1,0 +1,51 @@
+---
+import Docs from '../../layouts/Docs.astro';
+---
+
+<Docs title="Installation">
+  <h1>Installation</h1>
+  <p>
+    MixRestore is distributed as a macOS application. Download the latest release and
+    you'll be up and running in under a minute.
+  </p>
+
+  <h2>Requirements</h2>
+  <ul>
+    <li>macOS 12 (Monterey) or later</li>
+    <li>Ableton Live 10, 11, or 12</li>
+    <li>Git (included with macOS Command Line Tools)</li>
+  </ul>
+
+  <h2>Download</h2>
+  <p>
+    Download the latest <code>.dmg</code> file from the
+    <a href="https://github.com/owenbush/MixRestore/releases">GitHub Releases</a> page.
+  </p>
+
+  <h2>Install</h2>
+  <ol>
+    <li>Open the downloaded <code>.dmg</code> file</li>
+    <li>Drag <strong>MixRestore</strong> into your Applications folder</li>
+    <li>Launch MixRestore from Applications or Spotlight</li>
+  </ol>
+
+  <h3>First launch</h3>
+  <p>
+    On first launch, macOS may show a security prompt since MixRestore isn't notarized yet.
+    To proceed:
+  </p>
+  <ol>
+    <li>Open <strong>System Settings &gt; Privacy &amp; Security</strong></li>
+    <li>Scroll down and click <strong>"Open Anyway"</strong> next to the MixRestore message</li>
+  </ol>
+
+  <h2>Verify Git is available</h2>
+  <p>
+    MixRestore uses Git for version tracking. Most macOS installations include Git,
+    but you can verify by opening Terminal and running:
+  </p>
+  <pre><code>git --version</code></pre>
+  <p>
+    If Git isn't installed, macOS will prompt you to install the Command Line Tools.
+  </p>
+</Docs>

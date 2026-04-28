@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-full.png';
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo-link">
+      <Image src={logo} alt="MixRestore" height={32} />
+    </a>
+    <nav>
+      <a href="/#features">Features</a>
+      <a href="/docs">Docs</a>
+      <a href="/#download" class="btn-download">Download</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(14, 16, 20, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.875rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-link img {
+    height: 32px;
+    width: auto;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  nav a {
+    color: var(--text-dim);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.12s;
+  }
+
+  nav a:hover {
+    color: var(--text);
+    opacity: 1;
+  }
+
+  .btn-download {
+    background: var(--accent);
+    color: var(--accent-on);
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  .btn-download:hover {
+    opacity: 0.9;
+  }
+</style>

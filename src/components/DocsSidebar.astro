@@ -1,0 +1,94 @@
+---
+const sections = [
+  {
+    title: 'Getting Started',
+    links: [
+      { href: '/docs', label: 'Introduction' },
+      { href: '/docs/installation', label: 'Installation' },
+      { href: '/docs/quick-start', label: 'Quick Start' },
+    ],
+  },
+  {
+    title: 'Features',
+    links: [
+      { href: '/docs/auto-versioning', label: 'Auto Versioning' },
+      { href: '/docs/version-tags', label: 'Version Tags' },
+      { href: '/docs/restore', label: 'Restoring Versions' },
+      { href: '/docs/project-insights', label: 'Project Insights' },
+    ],
+  },
+  {
+    title: 'Reference',
+    links: [
+      { href: '/docs/supported-daws', label: 'Supported DAWs' },
+      { href: '/docs/settings', label: 'Settings' },
+      { href: '/docs/how-it-works', label: 'How It Works' },
+    ],
+  },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<aside class="docs-sidebar">
+  {sections.map((section) => (
+    <div class="sidebar-section">
+      <h4>{section.title}</h4>
+      <ul>
+        {section.links.map((link) => (
+          <li>
+            <a href={link.href} class:list={[{ active: currentPath === link.href }]}>
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</aside>
+
+<style>
+  .docs-sidebar {
+    position: sticky;
+    top: 5rem;
+    align-self: start;
+  }
+
+  .sidebar-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-section h4 {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li a {
+    display: block;
+    padding: 0.3rem 0.65rem;
+    font-size: 0.825rem;
+    color: var(--text-dim);
+    border-radius: 4px;
+    transition: all 0.1s;
+  }
+
+  li a:hover {
+    color: var(--text);
+    background: var(--bg-2);
+    opacity: 1;
+  }
+
+  li a.active {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+</style>

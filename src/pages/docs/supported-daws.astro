@@ -1,0 +1,41 @@
+---
+import Docs from '../../layouts/Docs.astro';
+---
+
+<Docs title="Supported DAWs">
+  <h1>Supported DAWs</h1>
+  <p>
+    MixRestore currently provides full support for Ableton Live, with detection capabilities
+    for additional DAWs. Deep integration with other DAWs is planned for future releases.
+  </p>
+
+  <h2>Ableton Live (full support)</h2>
+  <p>MixRestore provides complete integration with Ableton Live:</p>
+  <ul>
+    <li><strong>Automatic detection</strong> — detects running Ableton Live instances</li>
+    <li><strong>File parsing</strong> — extracts metadata from <code>.als</code> files (BPM, key, tracks, samples)</li>
+    <li><strong>Version tracking</strong> — watches project folders for changes</li>
+    <li><strong>Arrangement visualization</strong> — displays locators and song sections</li>
+  </ul>
+  <p>Supported versions: <strong>Ableton Live 10, 11, and 12</strong></p>
+
+  <h2>Detected (tracking only)</h2>
+  <p>
+    MixRestore can detect when the following DAWs are running, and can track project
+    folder changes, but does not yet parse their native project file formats:
+  </p>
+  <ul>
+    <li>Logic Pro X (<code>.logicx</code>)</li>
+    <li>FL Studio (<code>.flp</code>)</li>
+    <li>Bitwig Studio (<code>.bwproject</code>)</li>
+    <li>Reaper (<code>.rpp</code>)</li>
+    <li>Studio One (<code>.song</code>)</li>
+  </ul>
+
+  <h2>Roadmap</h2>
+  <p>
+    Full parsing support for additional DAWs is planned. Priority will be based on user
+    demand. If you'd like to see support for your DAW, open an issue on the
+    <a href="https://github.com/owenbush/MixRestore/issues">GitHub repository</a>.
+  </p>
+</Docs>

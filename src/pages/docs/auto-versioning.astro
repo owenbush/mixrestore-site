@@ -1,0 +1,58 @@
+---
+import Docs from '../../layouts/Docs.astro';
+---
+
+<Docs title="Auto Versioning">
+  <h1>Auto Versioning</h1>
+  <p>
+    Auto Versioning is MixRestore's core feature. Once enabled, it watches your project
+    folder for changes and automatically creates a version snapshot every time you save.
+  </p>
+
+  <h2>How it works</h2>
+  <p>
+    When auto versioning is active, MixRestore uses filesystem watchers to detect
+    changes to your project files. When a change is detected:
+  </p>
+  <ol>
+    <li>MixRestore waits for the file write to complete (debounced to avoid partial saves)</li>
+    <li>All changed files in the project folder are staged</li>
+    <li>A new commit is created with an auto-generated message and timestamp</li>
+    <li>Project metadata (BPM, key, tracks, etc.) is extracted and stored</li>
+  </ol>
+
+  <h2>Enabling auto versioning</h2>
+  <p>
+    In the project detail view, toggle the <strong>Auto Versioning</strong> switch.
+    The switch turns green when active. Auto versioning persists across app restarts —
+    when you reopen MixRestore, any previously-enabled projects will resume watching automatically.
+  </p>
+
+  <h2>What gets tracked</h2>
+  <p>
+    MixRestore tracks all files in your Ableton project folder, including:
+  </p>
+  <ul>
+    <li>The <code>.als</code> Live Set file</li>
+    <li>Samples in the project's <code>Samples/</code> directory</li>
+    <li>Presets and Racks</li>
+    <li>Any other files in the project folder</li>
+  </ul>
+
+  <h3>Ignored files</h3>
+  <p>
+    MixRestore automatically ignores certain files that don't need versioning:
+  </p>
+  <ul>
+    <li><code>Backup/</code> directory (Ableton's own backups)</li>
+    <li>Undo history files</li>
+    <li>Temporary and cache files</li>
+  </ul>
+
+  <h2>Manual versioning</h2>
+  <p>
+    You can also create versions manually by clicking the <strong>Save Version</strong> button.
+    This is useful when you want to add a custom message describing what changed,
+    or when auto versioning is disabled.
+  </p>
+</Docs>

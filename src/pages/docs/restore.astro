@@ -1,0 +1,55 @@
+---
+import Docs from '../../layouts/Docs.astro';
+---
+
+<Docs title="Restoring Versions">
+  <h1>Restoring Versions</h1>
+  <p>
+    MixRestore makes it safe and easy to go back to any previous version of your project.
+    There are two restore modes depending on how confident you are about the rollback.
+  </p>
+
+  <h2>Safe restore</h2>
+  <p>
+    Safe restore creates a <strong>new version</strong> with the contents of the older version.
+    Your current state is preserved in the history — nothing is lost.
+  </p>
+  <p>This is the default and recommended mode. Use it when:</p>
+  <ul>
+    <li>You want to compare an older version side-by-side</li>
+    <li>You might want to return to the current state later</li>
+    <li>You're not sure which version is better</li>
+  </ul>
+
+  <h2>Hard restore</h2>
+  <p>
+    Hard restore resets your project files to the selected version and discards all
+    versions that came after it. This is <strong>destructive</strong> — the newer versions
+    are permanently removed from history.
+  </p>
+  <p>Use it when:</p>
+  <ul>
+    <li>You're absolutely certain you want to go back</li>
+    <li>The newer versions are genuinely unwanted</li>
+    <li>You want a clean history without the discarded work</li>
+  </ul>
+
+  <h2>How to restore</h2>
+  <ol>
+    <li>In the version history, find the version you want to restore</li>
+    <li>Click the <strong>Restore</strong> button on that version</li>
+    <li>Choose <strong>Safe</strong> or <strong>Hard</strong> mode</li>
+    <li>Confirm the restore</li>
+  </ol>
+  <p>
+    After restoring, reopen the project in Ableton Live to load the restored files.
+    If Ableton is already open, close and reopen the project.
+  </p>
+
+  <h2>Important notes</h2>
+  <ul>
+    <li>Always close Ableton before performing a hard restore to avoid file conflicts</li>
+    <li>Safe restore is non-destructive and can always be undone by restoring again</li>
+    <li>Hard restore requires typing CONFIRM to prevent accidental data loss</li>
+  </ul>
+</Docs>
