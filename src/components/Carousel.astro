@@ -237,10 +237,8 @@ const slides = [
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    const carousel = document.querySelector('[data-carousel]');
-    if (!carousel) return;
-
+  const carousel = document.querySelector('[data-carousel]');
+  if (carousel) {
     const track = carousel.querySelector('[data-carousel-track]') as HTMLElement;
     const slides = track.querySelectorAll('.carousel-slide');
     const dots = carousel.querySelectorAll('[data-dot]');
@@ -314,5 +312,5 @@ const slides = [
       if (e.key === 'ArrowLeft') showLightbox(lightboxIndex - 1);
       if (e.key === 'ArrowRight') showLightbox(lightboxIndex + 1);
     });
-  });
+  }
 </script>
