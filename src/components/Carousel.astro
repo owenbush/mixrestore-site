@@ -234,6 +234,38 @@ const slides = [
   .lightbox-img.active {
     display: block;
   }
+
+  @media (max-width: 768px) {
+    .carousel-track {
+      border-radius: var(--radius);
+    }
+
+    .lightbox-nav {
+      width: 36px;
+      height: 36px;
+    }
+
+    .lightbox-prev {
+      left: 0.5rem;
+    }
+
+    .lightbox-next {
+      right: 0.5rem;
+    }
+
+    .lightbox-close {
+      top: 0.75rem;
+      right: 0.75rem;
+    }
+
+    .lightbox-content {
+      max-width: 98vw;
+    }
+
+    .lightbox-img {
+      max-width: 98vw;
+    }
+  }
 </style>
 
 <script>

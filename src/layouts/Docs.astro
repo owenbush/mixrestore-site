@@ -94,7 +94,22 @@ const { title, description } = Astro.props;
   @media (max-width: 768px) {
     .docs-layout {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 1rem;
+      padding: 1.25rem 1rem;
+    }
+
+    .docs-content {
+      max-width: 100%;
+    }
+
+    .docs-content :global(h1) {
+      font-size: 1.6rem;
+    }
+
+    .docs-content :global(h2) {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      padding-top: 1.25rem;
     }
   }
 </style>
