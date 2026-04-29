@@ -1,0 +1,286 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import logoIcon from '../assets/logo-icon.png';
+---
+
+<Base title="Download MixRestore">
+  <section class="dl-hero">
+    <div class="dl-inner">
+      <div class="dl-icon">
+        <Image src={logoIcon} alt="MixRestore" width={64} height={64} />
+      </div>
+      <h1>Download MixRestore</h1>
+      <p class="dl-sub">macOS 12 (Monterey) or later</p>
+
+      <div class="dl-card" data-dl-card>
+        <div class="dl-loading" data-dl-loading>
+          <span class="dl-spinner"></span>
+          Checking for latest release…
+        </div>
+        <div class="dl-ready" data-dl-ready hidden>
+          <a class="dl-btn" data-dl-btn href="#" download>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span>Download <span data-dl-version></span> for macOS</span>
+          </a>
+          <div class="dl-meta">
+            <span data-dl-size></span>
+            <span class="dl-dot">·</span>
+            <span data-dl-date></span>
+          </div>
+        </div>
+        <div class="dl-unavailable" data-dl-unavailable hidden>
+          <p>No releases available yet. Check back soon.</p>
+          <a href="https://github.com/owenbush/mixrestore-releases/releases" target="_blank" rel="noopener">
+            View releases on GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="dl-steps">
+        <div class="dl-step">
+          <span class="dl-step-num">1</span>
+          <div>
+            <strong>Download &amp; install</strong>
+            <p>Open the <code>.dmg</code> and drag MixRestore to Applications.</p>
+          </div>
+        </div>
+        <div class="dl-step">
+          <span class="dl-step-num">2</span>
+          <div>
+            <strong>Buy a license</strong>
+            <p>
+              <a href="https://mixrestore.lemonsqueezy.com/checkout/buy/882ed3c3-f9b8-4841-af50-e7138e18af98?desc=0" target="_blank" rel="noopener">Subscribe for $39.99/year</a>
+              to get a license key.
+            </p>
+          </div>
+        </div>
+        <div class="dl-step">
+          <span class="dl-step-num">3</span>
+          <div>
+            <strong>Activate</strong>
+            <p>Launch MixRestore and enter your license key to get started.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const REPO = 'owenbush/mixrestore-releases';
+  const loading = document.querySelector('[data-dl-loading]') as HTMLElement;
+  const ready = document.querySelector('[data-dl-ready]') as HTMLElement;
+  const unavailable = document.querySelector('[data-dl-unavailable]') as HTMLElement;
+  const btn = document.querySelector('[data-dl-btn]') as HTMLAnchorElement;
+  const versionEl = document.querySelector('[data-dl-version]') as HTMLElement;
+  const sizeEl = document.querySelector('[data-dl-size]') as HTMLElement;
+  const dateEl = document.querySelector('[data-dl-date]') as HTMLElement;
+
+  async function fetchLatestRelease() {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
+      if (!res.ok) throw new Error('No release');
+
+      const data = await res.json();
+      const dmg = data.assets?.find((a: any) => a.name.endsWith('.dmg'));
+
+      if (!dmg) throw new Error('No DMG asset');
+
+      const version = data.tag_name.replace(/^v/, '');
+      const size = (dmg.size / (1024 * 1024)).toFixed(1);
+      const date = new Date(data.published_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+
+      btn.href = dmg.browser_download_url;
+      versionEl.textContent = `v${version}`;
+      sizeEl.textContent = `${size} MB`;
+      dateEl.textContent = date;
+
+      loading.hidden = true;
+      ready.hidden = false;
+    } catch {
+      loading.hidden = true;
+      unavailable.hidden = false;
+    }
+  }
+
+  fetchLatestRelease();
+</script>
+
+<style>
+  .dl-hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+    text-align: center;
+  }
+
+  .dl-inner {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .dl-icon {
+    margin-bottom: 1.5rem;
+  }
+
+  .dl-icon img {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    margin: 0 auto;
+  }
+
+  .dl-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .dl-sub {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .dl-card {
+    background: var(--bg-1);
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    padding: 2rem 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .dl-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
+  .dl-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--line-2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: dl-spin 0.8s linear infinite;
+  }
+
+  @keyframes dl-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: #111;
+    padding: 0.8rem 1.75rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: opacity 0.12s;
+  }
+
+  .dl-btn:hover {
+    opacity: 0.9;
+    color: #111;
+  }
+
+  .dl-meta {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    font-family: var(--font-mono, monospace);
+  }
+
+  .dl-dot {
+    margin: 0 0.35rem;
+  }
+
+  .dl-unavailable {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
+  .dl-unavailable p {
+    margin-bottom: 0.5rem;
+  }
+
+  .dl-unavailable a {
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+
+  .dl-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: left;
+  }
+
+  .dl-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .dl-step-num {
+    width: 2rem;
+    height: 2rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .dl-step strong {
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .dl-step p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .dl-step a {
+    color: var(--accent);
+  }
+
+  .dl-step code {
+    font-size: 0.8em;
+    background: var(--bg-2);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+
+  @media (max-width: 640px) {
+    .dl-hero {
+      padding: 3rem 1rem 4rem;
+    }
+
+    .dl-hero h1 {
+      font-size: 1.75rem;
+    }
+  }
+</style>
