@@ -14,11 +14,11 @@ import logoIcon from '../assets/logo-icon.png';
       <p class="dl-sub">macOS 12 (Monterey) or later</p>
 
       <div class="dl-card" data-dl-card>
-        <div class="dl-loading" data-dl-loading>
+        <div class="dl-state dl-loading active" data-dl-loading>
           <span class="dl-spinner"></span>
           Checking for latest release…
         </div>
-        <div class="dl-ready" data-dl-ready hidden>
+        <div class="dl-state dl-ready" data-dl-ready>
           <p class="dl-version" data-dl-version-label></p>
           <div class="dl-buttons">
             <a class="dl-btn" data-dl-btn-arm href="#" download>
@@ -41,7 +41,7 @@ import logoIcon from '../assets/logo-icon.png';
           <p class="dl-hint">Not sure? Apple Silicon is for M1/M2/M3/M4 Macs. Older Macs use Intel.</p>
           <div class="dl-meta" data-dl-meta></div>
         </div>
-        <div class="dl-unavailable" data-dl-unavailable hidden>
+        <div class="dl-state dl-unavailable" data-dl-unavailable>
           <p>No releases available yet. Check back soon.</p>
           <a href="https://github.com/owenbush/mixrestore-releases/releases" target="_blank" rel="noopener">
             View releases on GitHub
@@ -96,9 +96,10 @@ import logoIcon from '../assets/logo-icon.png';
 
       const data = await res.json();
       const assets = data.assets || [];
-      const armDmg = assets.find((a: any) => a.name.endsWith('-arm64.dmg') || a.name.endsWith('-arm64-mac.dmg'));
-      const intelDmg = assets.find((a: any) => a.name.endsWith('-x64.dmg') || a.name.endsWith('-mac.dmg') && !a.name.includes('arm64'));
-      const anyDmg = assets.find((a: any) => a.name.endsWith('.dmg'));
+      const dmgs = assets.filter((a: any) => a.name.endsWith('.dmg'));
+      const armDmg = dmgs.find((a: any) => a.name.includes('arm64'));
+      const intelDmg = dmgs.find((a: any) => !a.name.includes('arm64'));
+      const anyDmg = dmgs[0];
 
       if (!anyDmg) throw new Error('No DMG asset');
 
@@ -125,11 +126,11 @@ import logoIcon from '../assets/logo-icon.png';
         metaEl.textContent = `${size} MB · ${date}`;
       }
 
-      loading.hidden = true;
-      ready.hidden = false;
+      loading.classList.remove('active');
+      ready.classList.add('active');
     } catch {
-      loading.hidden = true;
-      unavailable.hidden = false;
+      loading.classList.remove('active');
+      unavailable.classList.add('active');
     }
   }
 
@@ -179,13 +180,25 @@ import logoIcon from '../assets/logo-icon.png';
     margin-bottom: 3rem;
   }
 
+  .dl-state {
+    display: none;
+  }
+
+  .dl-state.active {
+    display: block;
+  }
+
   .dl-loading {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
     color: var(--text-dim);
     font-size: 0.9rem;
+  }
+
+  .dl-loading.active {
+    display: flex;
   }
 
   .dl-spinner {
