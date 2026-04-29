@@ -19,19 +19,27 @@ import logoIcon from '../assets/logo-icon.png';
           Checking for latest release…
         </div>
         <div class="dl-ready" data-dl-ready hidden>
-          <a class="dl-btn" data-dl-btn href="#" download>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            <span>Download <span data-dl-version></span> for macOS</span>
-          </a>
-          <div class="dl-meta">
-            <span data-dl-size></span>
-            <span class="dl-dot">·</span>
-            <span data-dl-date></span>
+          <p class="dl-version" data-dl-version-label></p>
+          <div class="dl-buttons">
+            <a class="dl-btn" data-dl-btn-arm href="#" download>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span>Apple Silicon</span>
+            </a>
+            <a class="dl-btn dl-btn-secondary" data-dl-btn-intel href="#" download>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span>Intel</span>
+            </a>
           </div>
+          <p class="dl-hint">Not sure? Apple Silicon is for M1/M2/M3/M4 Macs. Older Macs use Intel.</p>
+          <div class="dl-meta" data-dl-meta></div>
         </div>
         <div class="dl-unavailable" data-dl-unavailable hidden>
           <p>No releases available yet. Check back soon.</p>
@@ -76,10 +84,10 @@ import logoIcon from '../assets/logo-icon.png';
   const loading = document.querySelector('[data-dl-loading]') as HTMLElement;
   const ready = document.querySelector('[data-dl-ready]') as HTMLElement;
   const unavailable = document.querySelector('[data-dl-unavailable]') as HTMLElement;
-  const btn = document.querySelector('[data-dl-btn]') as HTMLAnchorElement;
-  const versionEl = document.querySelector('[data-dl-version]') as HTMLElement;
-  const sizeEl = document.querySelector('[data-dl-size]') as HTMLElement;
-  const dateEl = document.querySelector('[data-dl-date]') as HTMLElement;
+  const btnArm = document.querySelector('[data-dl-btn-arm]') as HTMLAnchorElement;
+  const btnIntel = document.querySelector('[data-dl-btn-intel]') as HTMLAnchorElement;
+  const versionLabel = document.querySelector('[data-dl-version-label]') as HTMLElement;
+  const metaEl = document.querySelector('[data-dl-meta]') as HTMLElement;
 
   async function fetchLatestRelease() {
     try {
@@ -87,22 +95,35 @@ import logoIcon from '../assets/logo-icon.png';
       if (!res.ok) throw new Error('No release');
 
       const data = await res.json();
-      const dmg = data.assets?.find((a: any) => a.name.endsWith('.dmg'));
+      const assets = data.assets || [];
+      const armDmg = assets.find((a: any) => a.name.endsWith('-arm64.dmg') || a.name.endsWith('-arm64-mac.dmg'));
+      const intelDmg = assets.find((a: any) => a.name.endsWith('-x64.dmg') || a.name.endsWith('-mac.dmg') && !a.name.includes('arm64'));
+      const anyDmg = assets.find((a: any) => a.name.endsWith('.dmg'));
 
-      if (!dmg) throw new Error('No DMG asset');
+      if (!anyDmg) throw new Error('No DMG asset');
 
       const version = data.tag_name.replace(/^v/, '');
-      const size = (dmg.size / (1024 * 1024)).toFixed(1);
       const date = new Date(data.published_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
       });
 
-      btn.href = dmg.browser_download_url;
-      versionEl.textContent = `v${version}`;
-      sizeEl.textContent = `${size} MB`;
-      dateEl.textContent = date;
+      versionLabel.textContent = `MixRestore v${version}`;
+
+      if (armDmg && intelDmg) {
+        btnArm.href = armDmg.browser_download_url;
+        btnIntel.href = intelDmg.browser_download_url;
+        const armSize = (armDmg.size / (1024 * 1024)).toFixed(0);
+        const intelSize = (intelDmg.size / (1024 * 1024)).toFixed(0);
+        metaEl.textContent = `Apple Silicon ${armSize} MB · Intel ${intelSize} MB · ${date}`;
+      } else {
+        btnArm.href = anyDmg.browser_download_url;
+        btnIntel.style.display = 'none';
+        document.querySelector('.dl-hint')?.remove();
+        const size = (anyDmg.size / (1024 * 1024)).toFixed(0);
+        metaEl.textContent = `${size} MB · ${date}`;
+      }
 
       loading.hidden = true;
       ready.hidden = false;
@@ -180,16 +201,30 @@ import logoIcon from '../assets/logo-icon.png';
     to { transform: rotate(360deg); }
   }
 
+  .dl-version {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 1.25rem;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .dl-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .dl-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
     background: var(--accent);
     color: #111;
-    padding: 0.8rem 1.75rem;
+    padding: 0.75rem 1.5rem;
     border-radius: var(--radius);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.925rem;
     transition: opacity 0.12s;
   }
 
@@ -198,15 +233,29 @@ import logoIcon from '../assets/logo-icon.png';
     color: #111;
   }
 
+  .dl-btn-secondary {
+    background: var(--bg-2);
+    color: var(--text-mid);
+    border: 1px solid var(--line-2);
+  }
+
+  .dl-btn-secondary:hover {
+    background: var(--bg-3);
+    color: var(--text);
+    opacity: 1;
+  }
+
+  .dl-hint {
+    margin-top: 0.85rem;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+  }
+
   .dl-meta {
     margin-top: 0.75rem;
     font-size: 0.8rem;
     color: var(--text-faint);
     font-family: var(--font-mono, monospace);
-  }
-
-  .dl-dot {
-    margin: 0 0.35rem;
   }
 
   .dl-unavailable {
@@ -281,6 +330,14 @@ import logoIcon from '../assets/logo-icon.png';
 
     .dl-hero h1 {
       font-size: 1.75rem;
+    }
+
+    .dl-buttons {
+      flex-direction: column;
+    }
+
+    .dl-btn {
+      justify-content: center;
     }
   }
 </style>
