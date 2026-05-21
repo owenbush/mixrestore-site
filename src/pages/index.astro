@@ -14,17 +14,18 @@ import logoIcon from '../assets/logo-icon.png';
       </div>
       <h1>Never lose a mix again</h1>
       <p class="hero-sub">
-        MixRestore automatically tracks every save of your Ableton Live projects.
-        Compare versions, restore any point in time, and keep your creative flow uninterrupted.
+        You've been tweaking a mix for hours. It sounded perfect three saves ago — but now it's gone.
+        MixRestore quietly tracks every save of your Ableton Live projects, so you can always get back to the version that felt right.
       </p>
       <div class="hero-actions" id="download">
         <a href="https://mixrestore.lemonsqueezy.com/checkout/buy/dcd3e44c-740b-44cb-bd50-2d7795fd55b5?desc=0" class="btn btn-primary">
-          Buy for macOS — $39.99
+          Try free for 7 days
         </a>
         <a href="/download" class="btn btn-secondary">
           Download
         </a>
       </div>
+      <p class="hero-trial-note">Then $39.99 for a lifetime license. No subscription.</p>
     </div>
     <div class="hero-screenshot">
       <Carousel />
@@ -149,10 +150,10 @@ import logoIcon from '../assets/logo-icon.png';
 
   <section class="cta">
     <div class="cta-inner">
-      <h2>Start protecting your projects today</h2>
-      <p>Works with Ableton Live 10, 11, and 12.</p>
+      <h2>Stop losing the mix that sounded right</h2>
+      <p>Works with Ableton Live 10, 11, and 12. Try free for 7 days.</p>
       <a href="https://mixrestore.lemonsqueezy.com/checkout/buy/dcd3e44c-740b-44cb-bd50-2d7795fd55b5?desc=0" class="btn btn-primary">
-        Buy MixRestore
+        Start your free trial
       </a>
     </div>
   </section>
@@ -243,6 +244,12 @@ import logoIcon from '../assets/logo-icon.png';
     background: var(--bg-3);
     color: var(--text);
     opacity: 1;
+  }
+
+  .hero-trial-note {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-min);
   }
 
   .hero-screenshot {
